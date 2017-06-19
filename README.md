@@ -12,6 +12,14 @@ sudo mkdir -p /usr/local/share/clamav
 sudo mkdir -p /var/run2
 ```
 
+```sh
+#se não existir o usuario www-data por favor crie:
+adduser --system --no-create-home -u 33 -g 33 -c "Web Sites" -d /var/www/html  www-data
+
+#se o nome do grupo não for www-data
+groupmod --new-name www-data tape
+```
+
 ### MySQL
 ```sh
 docker run --detach \
@@ -42,6 +50,7 @@ docker run --detach \
 --restart always \
 --volume /etc/php.ini:/usr/local/etc/php/conf.d/php-custom.ini:ro \
 --volume /var/www:/var/www:rw,z \
+--volume /tmp/limbo:/limbo:rw,z \
 dev-localhost:php7
 ```
 
