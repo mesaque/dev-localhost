@@ -22,12 +22,17 @@ groupmod --new-name www-data tape
 
 ### MySQL
 ```sh
+
+sudo cp mysql.cnf /etc/mysql.cnf
+
+
 docker run --detach \
 --name mysql \
 --hostname mysql-localhost  \
 --restart always \
 -e MYSQL_ROOT_PASSWORD=63drmDruGvjJ7HWD \
 --volume /var/lib/mysql:/var/lib/mysql \
+--volume /etc/mysql.cnf:/etc/mysql/conf.d/mysql-localhost.cnf:ro \
 --network="host" \
 -p 3306:3306 \
 mysql:latest
@@ -42,6 +47,7 @@ sudo dnf install -y mysql-community-client.x86_64
 docker build  -t dev-localhost:php7 -f dockerfiles/dockerfile-php7 .
 
 sudo cp php.ini /etc/php.ini
+sudo cp msmtprc /etc/msmtprc
 
 docker run --detach \
 --name php7 \
@@ -49,6 +55,7 @@ docker run --detach \
 --hostname php7-localhost \
 --restart always \
 --volume /etc/php.ini:/usr/local/etc/php/conf.d/php-custom.ini:ro \
+-v /etc/msmtprc:/etc/msmtprc:ro \
 --volume /var/www:/var/www:rw,z \
 --volume /tmp/limbo:/limbo:rw,z \
 dev-localhost:php7
@@ -76,4 +83,13 @@ docker run --detach \
 -p 80:80 \
 -p 443:443 \
 dev-localhost:nginx-webserver
+```
+
+```sh
+docker run --detach \
+--name memcache \
+--network="host" \
+--hostname memcached-localhost \
+--restart always \
+memcached:latest
 ```
