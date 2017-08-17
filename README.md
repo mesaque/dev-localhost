@@ -55,7 +55,7 @@ docker run --detach \
 --hostname php7-localhost \
 --restart always \
 --volume /etc/php.ini:/usr/local/etc/php/conf.d/php-custom.ini:ro \
--v /etc/msmtprc:/etc/msmtprc:ro \
+--volume /etc/msmtprc:/etc/msmtprc:ro \
 --volume /var/www:/var/www:rw,z \
 --volume /tmp/limbo:/limbo:rw,z \
 dev-localhost:php7
