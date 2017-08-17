@@ -8,7 +8,6 @@ sudo mkdir -p /etc/nginx
 sudo mkdir -p /var/log/nginx
 sudo mkdir -p /var/log/letsencrypt
 sudo mkdir -p /etc/letsencrypt
-sudo mkdir -p /usr/local/share/clamav
 sudo mkdir -p /var/run2
 ```
 
