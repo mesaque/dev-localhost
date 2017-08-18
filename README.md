@@ -103,7 +103,8 @@ docker run --detach \
 --hostname webserver-localhost \
 --restart always \
 --volume /var/www:/var/www:rw,z \
---volume /etc/apache2:/etc/apache2:rw,z \
+--volume /etc/apache2:/usr/local/apache2/conf:rw,z \
+--volume /etc/apache2/modules:/usr/local/apache2/modules \
 --volume /etc/letsencrypt:/etc/letsencrypt:rw,z \
 --volume /var/log/apache2:/var/log/apache2:rw,z \
 --volume /var/log/letsencrypt:/var/log/letsencrypt:rw,z \
