@@ -1,0 +1,26 @@
+FROM php:apache
+MAINTAINER MadLabBrazil Team Maintainers mesaque.s.silva@gmail.com
+
+RUN apt-get update && apt-get install -y git vim libmcrypt-dev libjpeg-dev libpng12-dev libxft-dev libmemcached-dev bash sudo msmtp
+
+RUN git clone git://github.com/xdebug/xdebug.git /xdebug && \
+cd /xdebug && /usr/local/bin/phpize && ./configure --enable-xdebug &&  make && make install && docker-php-ext-enable xdebug
+
+RUN docker-php-ext-configure gd \
+    --with-gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ && \
+  NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+  docker-php-ext-install -j${NPROC} gd
+
+
+RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz" \
+    && mkdir -p /usr/src/php/ext/memcached \
+    && tar -C /usr/src/php/ext/memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
+    && docker-php-ext-configure memcached  \
+    && docker-php-ext-install memcached \
+    && rm /tmp/memcached.tar.gz
+
+RUN docker-php-ext-install mysqli sockets mcrypt calendar bcmath opcache
+WORKDIR /var/www
