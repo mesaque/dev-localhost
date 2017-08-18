@@ -95,8 +95,6 @@ dev-localhost:nginx-webserver
 
 ### Apache webserver
 ```sh
-docker build  -t dev-localhost:apache-webserver -f dockerfiles/dockerfile-apache-php .
-
 sudo cp -rf apache/* /etc/apache2/
 
 docker run --detach \
@@ -105,13 +103,14 @@ docker run --detach \
 --hostname webserver-localhost \
 --restart always \
 --volume /var/www:/var/www:rw,z \
---volume /etc/apache2:/etc/apache2:rw,z \
+--volume /etc/apache2:/usr/local/apache2/conf:rw,z \
+--volume /etc/apache2/modules:/usr/local/apache2/modules \
 --volume /etc/letsencrypt:/etc/letsencrypt:rw,z \
 --volume /var/log/apache2:/var/log/apache2:rw,z \
 --volume /var/log/letsencrypt:/var/log/letsencrypt:rw,z \
 -p 80:80 \
 -p 443:443 \
-dev-localhost:apache-webserver
+php:apache
 ```
 
 docker run --detach \
