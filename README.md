@@ -9,6 +9,11 @@ sudo mkdir -p /var/log/nginx
 sudo mkdir -p /var/log/letsencrypt
 sudo mkdir -p /etc/letsencrypt
 sudo mkdir -p /var/run2
+
+touch /var/log/msmtp.log
+touch /var/log/dev-localhost.log
+
+chmod 666 /var/log/msmtp.log /var/log/dev-localhost.log
 ```
 
 ```sh
@@ -54,8 +59,12 @@ docker run --detach \
 --hostname php7-localhost \
 --restart always \
 --volume /etc/php.ini:/usr/local/etc/php/conf.d/php-custom.ini:ro \
+--volume /var/log/msmtp.log:/var/log/msmtp.log \
+--volume /var/log/dev-localhost.log:/var/log/dev-localhost.log \
 --volume /etc/msmtprc:/etc/msmtprc:ro \
 --volume /var/www:/var/www:rw,z \
+--volume /etc/passwd:/etc/passwd:ro \
+--volume /etc/group:/etc/group:ro \
 --volume /tmp/limbo:/limbo:rw,z \
 dev-localhost:php7
 ```

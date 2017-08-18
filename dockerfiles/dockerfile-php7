@@ -24,3 +24,4 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
 
 RUN docker-php-ext-install mysqli sockets mcrypt calendar bcmath opcache
 WORKDIR /var/www
+USER root
