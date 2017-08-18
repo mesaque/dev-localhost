@@ -60,7 +60,7 @@ docker run --detach \
 dev-localhost:php7
 ```
 
-
+## Optional Choose your Web Server
 ### Nginx webserver
 ```sh
 docker build  -t dev-localhost:nginx-webserver -f dockerfiles/dockerfile-nginx-module-pagespeed .
@@ -84,7 +84,25 @@ docker run --detach \
 dev-localhost:nginx-webserver
 ```
 
+### Apache webserver
 ```sh
+sudo cp -rf apache/* /etc/apache2/
+
+docker run --detach \
+--name apache \
+--network="host" \
+--hostname webserver-localhost \
+--restart always \
+--volume /var/www:/var/www:rw,z \
+--volume /etc/apache2:/etc/apache2:rw,z \
+--volume /etc/letsencrypt:/etc/letsencrypt:rw,z \
+--volume /var/log/apache2:/var/log/apache2:rw,z \
+--volume /var/log/letsencrypt:/var/log/letsencrypt:rw,z \
+-p 80:80 \
+-p 443:443 \
+php:apache
+```
+
 docker run --detach \
 --name memcache \
 --network="host" \
