@@ -1,0 +1,6 @@
+FROM php:apache
+MAINTAINER MadLabBrazil Team Maintainers mesaque.s.silva@gmail.com
+
+RUN apt-get update && apt-get install -y git vim libapache2-mod-fcgid
+
+WORKDIR /var/www
