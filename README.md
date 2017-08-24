@@ -110,6 +110,8 @@ docker run --detach \
 --volume /etc/letsencrypt:/etc/letsencrypt:rw,z \
 --volume /var/log/apache2:/var/log/apache2:rw,z \
 --volume /var/log/letsencrypt:/var/log/letsencrypt:rw,z \
+--volume /etc/passwd:/etc/passwd:ro \
+--volume /etc/group:/etc/group:ro \
 -p 80:80 \
 -p 443:443 \
 dev-localhost:apache-webserver
