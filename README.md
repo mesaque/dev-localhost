@@ -37,6 +37,7 @@ docker run --detach \
 -e MYSQL_ROOT_PASSWORD=63drmDruGvjJ7HWD \
 --volume /var/lib/mysql:/var/lib/mysql \
 --volume /etc/mysql.cnf:/etc/mysql/conf.d/mysql-localhost.cnf:ro \
+--volume /var/log/mysql:/var/log/mysql \
 --network="host" \
 -p 3306:3306 \
 mysql:latest
