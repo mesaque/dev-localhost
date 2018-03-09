@@ -125,3 +125,18 @@ docker run --detach \
 --restart always \
 memcached:latest
 ```
+
+### Backfire Profilling
+```sh
+https://blackfire.io/account#server
+docker run --name="blackfire" -d \
+-e "BLACKFIRE_SERVER_ID=" \
+-e "BLACKFIRE_SERVER_TOKEN=" \
+-e "BLACKFIRE_CLIENT_ID=" \
+-e "BLACKFIRE_CLIENT_TOKEN=" \
+--network="host" \
+ blackfire/blackfire
+
+https://blackfire.io/docs/integrations/docker
+```
+
